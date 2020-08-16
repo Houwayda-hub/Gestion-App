@@ -1,0 +1,81 @@
+
+<title>Connexion</title>
+{% block stylesheets %}
+ <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatable/2.0.1/js/datatable.jquery.min.js" />
+ 
+ <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" /> 
+ <link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.min.css" >
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
+
+
+<link rel="stylesheet" href="css/style.css" >  
+<style>
+body{
+}
+#container{
+    width:400px;
+    margin:0 auto;
+    margin-top:10%;
+}
+/* Bordered form */
+form {
+    width:100%;
+    padding: 30px;
+    border: 1px solid #f1f1f1;
+    background: #fff;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+#container h1{
+    width: 38%;
+    margin: 0 auto;
+    padding-bottom: 10px;
+}
+
+/* Full-width inputs */
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+input[type=submit] {
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+input[type=submit]:hover {
+}
+ h4{
+  
+text-align: center ;}
+</style>
+    {% endblock %}
+
+{% block body %}
+   <div id="container">
+            
+            <form action="{{ path('login') }}" method="POST">
+                <label><b>Identifiant</b></label>
+                <input type="text" placeholder="Entrer l'E-mail" name="_username" required>
+
+                <label><b>Mot de passe</b></label>
+                <input type="password" placeholder="Entrer le mot de passe" name="_password" required>
+
+                <input type="submit" id='submit'class="btn btn-primary"  value='Connexion' >
+                <label>Si vous n'avez pas un compte , </label>
+                <label><a href="/inscription" >Inscrivez vous ici </a></label>
+                
+            </form>
+        </div>
+{% endblock %}

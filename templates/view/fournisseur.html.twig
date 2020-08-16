@@ -1,0 +1,277 @@
+<title>Fournisseurs</title>
+
+{% block stylesheets %}
+ <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatable/2.0.1/js/datatable.jquery.min.js" />
+ 
+ <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" /> 
+ <link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.min.css" >
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
+
+
+<link rel="stylesheet" href="css/style.css" >  
+
+    {% endblock %}
+
+{% block body %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="#">GESTION.APP</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarColor02">
+    <ul class="navbar-nav mr-auto">
+      
+     <li class="nav-item ">
+                            <a  href="/PER" class="nav-link" id="">Gestion de personnel
+                                </a>
+                        </li>
+      <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Gestion d'achat 
+                                </a>
+                            <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="/FR">Fournisseurs</a>
+                                <a class="dropdown-item" href="/MP">Matiéres Pre</a>
+                                <a class="dropdown-item" href="/CMD">Commandes</a>
+                            </div>
+                        </li>
+       <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Gestion de vente 
+                                </a>
+                            <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="/CL">Clients</a>
+                                <a class="dropdown-item" href="/PF">Produits</a>
+                                <a class="dropdown-item" href="/LIV">Livraisons</a>
+                            </div>
+                        </li>
+                         <li class="nav-item">
+                            <a  href="/login" style="margin-left:810px ;" class="nav-link" id="">Déconnexion
+                                </a>
+                        </li>
+    </ul>
+    
+  </div>
+</nav>
+<div>
+<p></p>
+</div>
+      <!-- Page content -->
+      <div id="page-content-wrapper">
+        <!-- Keep all page content within the page-content inset div! -->
+        <div class="page-content inset">
+          <div class="row">
+              <div class="col-md-12">
+              <div class="tab-content" >
+    <div class="active tab-pane"  id="listFR" >
+      <div class="box-header">
+      <div class="alert alert-danger alert-dismissible" id='sAlert_d' style="display: none;">
+            <button class="close" onclick="$(this).parent().hide();" type="button">×</button><span id="sMessage"></span>
+        </div>
+        <div class="alert alert-warning alert-dismissible" id='sAlert_u' style="display: none;">
+            <button class="close" onclick="$(this).parent().hide();" type="button">×</button><span id="sMessage"></span>
+        </div>
+            <button id="myBtn" class="btn btn-primary" style="margin-left:1410px ;" onclick="showModalAddFR()">Ajouter</button>
+            </button>
+        <p></p>
+
+        <div class="box-body"> 
+            <table class="table table-bordered  table-hover">
+                <thead>
+                <tr class="table-primary">
+                    <th>Nom & Prénom </th>
+                    <th>Téléphone</th>
+                    <th>Fax</th>
+                    <th>Adresse</th>
+                    <th>E-mail</th>
+                    <th>Matricule Fiscale</th>
+                    <th>Actions</th>
+
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addFR"  role="dialog"  data-backdrop="static" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Nouveau fournisseur</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+         <div class="container">
+                <form role="form" method="post">
+                 
+                    <div class="form-group">
+                      <label>Nom & Prénom </label>
+                      <input type="text" name="nom" id="nom"   required minlength="5" maxlength="25" class="form-control">
+                      </div>
+                      <div class="form-group">
+                       <label>Téléphone</label>
+                      <input type="text" name="tel"  id="tel"   required minlength="10" maxlength="10" class="form-control">
+                      </div>
+                      <div class="form-group">
+                     <label>Fax</label>
+                      <input type="text" name="fax" id="fax"  required minlength="10" maxlength="10"    class="form-control" > 
+                      </div>
+                       <div class="form-group">
+                     <label>Adresse</label>
+                      <input type="text" name="adresse" id="adresse"  required minlength="4" maxlength="20"  class="form-control" > 
+                      </div>
+                       <div class="form-group">
+                     <label>E-mail</label>
+                      <input type="text" name="email" id="email"  required minlength="15" maxlength="20"  class="form-control" > 
+                      </div>
+                      <div class="form-group">
+                        <label>Matricule Fiscale</label>
+                      <input type="text" name="mat_fiscale" id="mat_fiscale"  required minlength="10" maxlength="10" class="form-control">
+                      </div>
+                     
+                  </form>
+            </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="addFR()">Enregister</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="editFR" data-backdrop="static">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                  
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                      <h4 class="modal-title">Modifier le fournisseur</h4>
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    
+                    <!-- Modal body -->
+                       <div class="modal-body">
+                        <div class="container">
+                            <form role="form" method="post">
+                 
+                    <div class="form-group">
+                      <label>Nom & Prénom </label>
+                      <input type="text" name="nom" id="nomC"  required minlength="5" maxlength="25"  class="form-control">
+                      </div>
+                      <div class="form-group">
+                       <label>Téléphone</label>
+                      <input type="text" name="tel" required minlength="10" maxlength="10"   id="telC"  class="form-control">
+                      </div>
+                      <div class="form-group">
+                     <label>Fax</label>
+                      <input type="text" name="fax"  required minlength="10" maxlength="10"   id="faxC"   class="form-control" > 
+                      </div>
+                       <div class="form-group">
+                     <label>Adresse</label>
+                      <input type="text" required minlength="4" maxlength="20"   name="adresse" id="adresseC"   class="form-control" > 
+                      </div>
+                       <div class="form-group">
+                     <label>E-mail</label>
+                      <input type="text" name="email" id="emailC"  required minlength="5" maxlength="20"   class="form-control" > 
+                      </div>
+                      <div class="form-group">
+                        <label>Matricule Fiscale</label>
+                      <input type="text" name="mat_fiscale" id="mat_fiscaleC"  required minlength="10" maxlength="10"   class="form-control">
+                      </div>
+                    
+                  </form>
+                        </div>
+                      </div>     
+                    <div class="modal-footer">
+                          <button type="submit" class="btn btn-primary" data-dismiss="modal" onclick="editFR()" >Enregister</button>
+                    </div>
+                   </div>
+                  </div>
+              </div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" data-backdrop="static" id="deleteFR" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Voullez vous vraiment supprimer ce fournisseur ?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuller</button>
+        <a href="#delete"><button type="button" onclick="deleteFR()" class="btn btn-primary">Supprimer</button></a>
+      </div>
+    </div>
+  </div>
+</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+{% endblock %}  
+  {% block javascripts %}
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatable/2.0.1/js/datatable.jquery.min.js" />
+<script src="://cdnjs.cloudflare.com/ajax/libs/firebug-lite/1.4.0/firebug-lite.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.6/css/jquery.dataTables.min.css" /> 
+<script src="https://cdn.datatables.net/1.10.6/js/jquery.dataTables.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/ListFR.js"></script>
+    <script type="text/javascript">
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("active");
+});
+</script>
+<script type="text/javascript">
+       
+        $(document).ready(function(){
+            listFR();
+
+            $('#listFR').DataTable({
+            "columnDefs": [{"targets": [0], "visible": false}],
+            "language": {
+                "decimal": "",
+                "info": "Affichage de l'&eacute;l&eacute;ment START &agrave; END sur TOTAL &eacute;l&eacute;ments",
+                "infoEmpty": "Affichage de l'&eacute;l&eacute;ment START &agrave; END sur TOTAL &eacute;l&eacute;ments",
+                "infoFiltered": "(filtr&eacute; de MAX &eacute;l&eacute;ments au total)",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "Afficher MENU éléments",
+                "loadingRecords": "Chargement en cours...",
+                "processing": "Processing...",
+                "search": "Rechercher :",
+                "zeroRecords": "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                "paginate": {
+                    "first": "Premier",
+                    "previous": "Pr&eacute;c&eacute;dent",
+                    "next": "Suivant",
+                    "previous": "Précédent"
+                },
+                "aria": {
+                    "sortAscending": ": activer pour trier la colonne par ordre croissant",
+                    "sortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
+                }
+            }
+            
+        });
+        });
+    </script>
+
+    {% endblock %}

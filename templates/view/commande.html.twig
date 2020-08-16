@@ -1,0 +1,313 @@
+
+<title>Commandes</title>
+
+{% block stylesheets %}
+ <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatable/2.0.1/js/datatable.jquery.min.js" />
+ 
+ <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" /> 
+ <link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.min.css" >
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
+
+
+<link rel="stylesheet" href="css/style.css" >  
+
+    {% endblock %}
+
+{% block body %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="#">GESTION.APP</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarColor02">
+    <ul class="navbar-nav mr-auto">
+      
+     <li class="nav-item">
+                            <a  href="/PER" class="nav-link" id="">Gestion de personnel
+                                </a>
+                        </li>
+      <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Gestion d'achat 
+                                </a>
+                            <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="/FR">Fournisseurs</a>
+                                <a class="dropdown-item" href="/MP">Matiéres Pre</a>
+                                <a class="dropdown-item" href="/CMD">Commandes</a>
+                            </div>
+                        </li>
+       <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Gestion de vente 
+                                </a>
+                            <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="/CL">Clients</a>
+                                <a class="dropdown-item" href="/PF">Produits</a>
+                                <a class="dropdown-item" href="/LIV">Livraisons</a>
+                            </div>
+                        </li>
+                         <li class="nav-item">
+                            <a  href="/login" style="margin-left:810px ;" class="nav-link" id="">Déconnexion
+                                </a>
+                        </li>
+    </ul>
+    
+  </div>
+</nav>
+<div>
+<p></p>
+</div>
+      <!-- Page content -->
+      <div id="page-content-wrapper">
+        <!-- Keep all page content within the page-content inset div! -->
+        <div class="page-content inset">
+          <div class="row">
+              <div class="col-md-12">
+              <div class="tab-content" >
+    <div class="active tab-pane"  id="listCMD" >
+      <div class="box-header">
+        <div class="alert alert-warning alert-dismissible" id='sAlert_u' style="display: none;">
+            <button class="close" onclick="$(this).parent().hide();" type="button">×</button><span id="sMessage"></span>
+        </div>
+            <button id="myBtn" class="btn btn-primary" style="margin-left:1410px ;"  onclick="showModalAddCMD()">Ajouter</button>
+            </button>
+        <p></p>
+
+
+        <div class="box-body"> 
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr class="table-primary">
+                    
+                    <th>Numéro</th>
+                    <th>Quantité</th>
+                    <th>prix</th>
+                    <th>Mode de paie</th>
+                    <th>Date prévu réception</th>
+                    <th>Fournisseur</th>
+                    <th>Matiére</th>
+                    <th>Etat</th>
+                    <th>Actions</th>
+
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addCMD"  role="dialog"  data-backdrop="static" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Nouvelle commande</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+         <div class="container">
+                <form role="form" method="post">
+               
+                      <div class="form-group">
+                       <label>Numéro</label>
+                      <input type="text" name="numero"  id="numero" required minlength="1" maxlength="5"  class="form-control">
+                      </div>
+                      <div class="form-group">
+                     <label>Quantite</label>
+                      <input type="text" name="total_q" id="total_q" required minlength="1" maxlength="10"  class="form-control" > 
+                      </div>
+                       <div class="form-group">
+                     <label>Prix</label>
+                      <input type="text" name="total_p" id="total_p" required minlength="1" maxlength="10"  class="form-control" > 
+                      </div>
+                      <div class="form-group">
+                        <label>Mode de paie </label>
+                             <select name="mode_paie" id="mode_paie" class="form-control">
+                              <option value="">-- Veuillez séléctionner un mode --</option>
+                                <option value="1">Espéce</option>
+                                <option value="0">Chéque</option>
+                                </select>
+                      </div>
+                      <div class="form-group">
+                        <label>Date de réception</label>
+                      <input type="text" name="date_prevue_recp" required minlength="10" maxlength="10" id="date_prevue_recp"  class="form-control">
+                      </div>
+                        <div class="form-group">
+                    <label>Fournisseur </label>
+                      <select id="fournisseurs_bloc" name="fournisseur_id" value="" class="form-control"> 
+                      </select>  
+                    </div>
+                    <div class="form-group">
+                    <label>Matiére premiére </label>
+                      <select id="matieres_bloc" name="matiere_pre_id" value="" class="form-control"> 
+                      </select>  
+                    </div>
+                      <div class="form-group">
+                          <label>Etat </label>
+                             <select name="etat" id="etat" class="form-control">
+                              <option value="">-- Veuillez séléctionner l'etat --</option>
+                                <option value="1">Validée</option>
+                                <option value="0">Annulée</option>
+                                </select>
+                      </div>
+                  </form>
+            </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="addCMD()">Enregister</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="editCMD" data-backdrop="static">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                  
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                      <h4 class="modal-title">Modifier une matiére</h4>
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    
+                    <!-- Modal body -->
+                       <div class="modal-body">
+                        <div class="container">
+                            <form role="form" method="post">
+                 
+                      <div class="form-group">
+                       <label>Numéro</label>
+                      <input type="text" name="numero"  id="numeroC" required minlength="1" maxlength="5" class="form-control">
+                      </div>
+                       <div class="form-group">
+                     <label>Quantite</label>
+                      <input type="text" name="total_q" id="total_qC"  required minlength="1" maxlength="10" class="form-control" > 
+                      </div>
+                       <div class="form-group">
+                     <label>Prix</label>
+                      <input type="text" name="total_p" id="total_pC" required minlength="1" maxlength="10"  class="form-control" > 
+                      </div>
+                      <div class="form-group">
+                        <label>Mode de paie </label>
+                             <select name="mode_paie" id="mode_paieC" class="form-control">
+                              <option value="">-- Veuillez séléctionner un mode --</option>
+                                <option value="1">Espéce</option>
+                                <option value="0">Chéque</option>
+                                </select>
+                      </div>
+                      <div class="form-group">
+                        <label>Date de réception</label>
+                      <input type="text" name="date_prevue_recp" required minlength="10" maxlength="10" id="dateC"  class="form-control">
+                      </div>
+                      <div class="form-group">
+                    <label>Fournisseur </label>
+                      <select id="fournisseurs1" name="fournisseur_id" value="" class="form-control"> 
+                      </select>  
+                    </div>
+                    <div class="form-group">
+                    <label>Matiére premiére </label>
+                      <select id="matieres1" name="matiere_pre_id" value="" class="form-control"> 
+                      </select>  
+                    </div>
+                      <div class="form-group">
+                          <label>Etat </label>
+                             <select name="etat" id="etatC" class="form-control">
+                              <option value="">-- Veuillez séléctionner l'etat --</option>
+                                <option value="1">En stock</option>
+                                <option value="0">En rupture</option>
+                                </select>
+                      </div>
+                  </form>
+                        </div>
+                      </div>     
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-primary" data-dismiss="modal" onclick="editCMD()" >Enregister</button>
+                    </div>
+                   </div>
+                  </div>
+              </div>
+
+
+<!-- Modal -->
+<div class="modal fade" data-backdrop="static" id="deleteCMD" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Voullez vous vraiment supprimer cette commande ?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuller</button>
+        <a href="#delete"><button type="button" onclick="deleteCMD()" class="btn btn-primary">Supprimer</button></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+{% endblock %}  
+  {% block javascripts %}
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatable/2.0.1/js/datatable.jquery.min.js" />
+<script src="://cdnjs.cloudflare.com/ajax/libs/firebug-lite/1.4.0/firebug-lite.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.6/css/jquery.dataTables.min.css" /> 
+<script src="https://cdn.datatables.net/1.10.6/js/jquery.dataTables.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/ListCmd.js"></script>
+    <script type="text/javascript">
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("active");
+});
+</script>
+<script type="text/javascript">
+       
+        $(document).ready(function(){
+            listCMD();
+
+            $('#listCMD').DataTable({
+            "columnDefs": [{"targets": [0], "visible": false}],
+            "language": {
+                "decimal": "",
+                "info": "Affichage de l'&eacute;l&eacute;ment START &agrave; END sur TOTAL &eacute;l&eacute;ments",
+                "infoEmpty": "Affichage de l'&eacute;l&eacute;ment START &agrave; END sur TOTAL &eacute;l&eacute;ments",
+                "infoFiltered": "(filtr&eacute; de MAX &eacute;l&eacute;ments au total)",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "Afficher MENU éléments",
+                "loadingRecords": "Chargement en cours...",
+                "processing": "Processing...",
+                "search": "Rechercher :",
+                "zeroRecords": "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                "paginate": {
+                    "first": "Premier",
+                    "previous": "Pr&eacute;c&eacute;dent",
+                    "next": "Suivant",
+                    "previous": "Précédent"
+                },
+                "aria": {
+                    "sortAscending": ": activer pour trier la colonne par ordre croissant",
+                    "sortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
+                }
+            }
+            
+        });
+        });
+    </script>
+
+    {% endblock %}
